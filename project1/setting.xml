@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<SettingServer>
+<portServer type="int">8080</portServer>
+<gameMechanicsGameTime type="int">15000</gameMechanicsGameTime>
+<gameMechanicsStepTime type="int">100</gameMechanicsStepTime>
+</SettingServer>

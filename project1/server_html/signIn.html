@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <title>Authorization</title>
+    <!-- Bootstrap -->
+    <link rel="stylesheet" type="text/css" href="http://localhost:8080/bootstrap/css/bootstrap.css"/>
+    <!-- Bootstrap -->
+
+    <script language="JavaScript">
+        function refresh(){
+            location.reload(true);
+        }
+    </script>
+</head>
+<body>
+<div class="row-fluid">
+    <a href = "/index.html" class="btn btn-success btn-medium span1 offset1" style="margin-top: 5px">Back</a>
+    <#if singIn == true >
+        <div class="span1 offset10">
+            <form action="/api/v1/auth/signout" method="GET" accept-charset="UTF-8">
+                <p>Hello ${userName}</p>
+                <input type="submit" value="SignOut" class="btn btn-success btn-medium" style="margin-top: 5px">
+            </form>
+        </div>
+    </#if>
+</div>
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="well span3 offset4 row-fluid" style="margin-top: 240px">
+            <legent>SignIn</legent><br>
+            <#if singIn == true >
+                <div class="alert span10">
+                    <h5 class="offset4">singIn Succes</h5><br>
+                </div>
+                <#else>
+                    <#if trySign == true>
+                        <div class="alert alert-error span10">
+                            <p class="offset4">This name or password not exist</p>
+                        </div>
+                    </#if>
+                    <form action="/api/v1/auth/signin" method="GET" accept-charset="UTF-8">
+                        <input type="text" name="name" class="span10" placeholder="name"><br>
+                        <input type="text" name="password" class="span10" placeholder="password"><br>
+                        <input type="submit" value="Input" class="btn btn-success btn-medium">
+                    </form>
+            </#if>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,67 @@
+﻿<html>
+<head>
+    <meta charset="UTF-8"/>
+    <title>Jetty WebSocket: Chat</title>
+    <link rel="stylesheet" type="text/css" href="http://localhost:8080/bootstrap/css/bootstrap.css"/>
+    <script type="text/javascript">
+        var ws;
+
+        init = function () {
+            ws = new WebSocket("ws://localhost:8080/chat");
+            ws.onopen = function (event) {
+
+            }
+            ws.onmessage = function (event) {
+                var $textarea = document.getElementById("messages");
+                $textarea.value = $textarea.value + event.data + "\n";
+            }
+            ws.onclose = function (event) {
+
+            }
+        };
+
+        function sendMessage() {
+            var messageField = document.getElementById("message");
+            var message = ":" + messageField.value;
+            ws.send(message);
+            messageField.value = '';
+        }
+    </script>
+</head>
+<body onload="init();">
+<div class="row-fluid">
+    <a href = "/index.html" class="btn btn-success btn-medium span1 offset1" style="margin-top: 5px">Back</a>
+    <#if singIn == true >
+        <div class="span1 offset10">
+            <form action="/api/v1/auth/signout" method="GET" accept-charset="UTF-8">
+                <p>Hello ${userName}</p>
+                <input type="submit" value="SignOut" class="btn btn-success btn-medium" style="margin-top: 5px">
+            </form>
+        </div>
+    </#if>
+</div>
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="well span3 offset4 row-fluid" style="margin-top: 240px">
+            <legent>SignIn</legent><br>
+            <#if singIn == true>
+                <div class="span10">
+                    <p class="offset4">Welcome to chat ${userName}</p>
+                </div><br>
+            <#else>
+                <div class="alert alert-error span10">
+                    <p class="offset4">Please input to system</p>
+                </div><br>
+            </#if>
+            <div id="chatbox" class="span10">
+                <textarea id="messages" rows="16" class="span12" readonly="readonly"></textarea>
+            </div>
+            <form name="message" action="" class="span10">
+                <input class="span10" name="usermsg" type="text" id="message" size="63" />
+                <input class="span2" type="button" name="submitmsg" value="Send..." onclick="sendMessage();"/>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>
